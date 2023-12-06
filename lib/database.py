@@ -11,7 +11,7 @@ class Database:
     """
 
     def __init__(self, ollama: Ollama) -> None:
-        client = chromadb.PersistentClient("./db/docs")
+        client = chromadb.PersistentClient("./db/surreal-docs")
         self._collection_name = "surreal-docs"
         self.ollama_embed_func = OllamaEmbeddings(base_url='http://localhost:11434', model="codellama:7b")
 
