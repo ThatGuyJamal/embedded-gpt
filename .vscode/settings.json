@@ -12,6 +12,7 @@
         "surrealdb",
         "tfjs",
         "vectorstore",
-        "vectorstores"
+        "vectorstores",
+        "venv"
     ]
 }

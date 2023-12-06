@@ -8,6 +8,8 @@ embed the library into the AI and then use it to get useful prompts.
 ## How to use
 
 ```bash
+python3 -m venv embedded-gpt-env
+source embedded-gpt-env/bin/activate.fish
 pip install -r requirements.txt
 ```
 

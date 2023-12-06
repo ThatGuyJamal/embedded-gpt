@@ -75,5 +75,4 @@ class LLM():
             print(docs['result'])
         except Exception as e:
             print("Error:", e)
-            print("[NOTE]: This error is probably coming from the vectorStore being None, this will be fixed soon, but for now you have to run the ingest command to fix this :/")
             return
