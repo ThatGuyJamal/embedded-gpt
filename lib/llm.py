@@ -1,3 +1,5 @@
+import urllib.parse
+
 from langchain.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
@@ -21,6 +23,13 @@ class LLM():
 
         url: The URL to ingest documents from.
         """
+        # Check if the url is a valid url
+        if url is not None:
+            parsed_url = urllib.parse.urlparse(url)
+            if parsed_url.scheme not in ["http", "https"]:
+                print("Invalid URL, try again.")
+                return
+
         if url is None:
             url = "https://surrealdb.com"
 
