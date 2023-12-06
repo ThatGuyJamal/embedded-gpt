@@ -5,6 +5,7 @@
         "langchain",
         "llms",
         "metadatas",
+        "Modelfile",
         "oembed",
         "Ollama",
         "qachain",
