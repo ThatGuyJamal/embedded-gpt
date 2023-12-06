@@ -1,4 +1,3 @@
-
 from lib.llm import LLM
 
 class CLI():
@@ -34,10 +33,11 @@ class CLI():
         """
         Ingest documents from the web
         """
-        custom_url = input("Enter a URL to ingest documents from (leave blank for default): ")
-        if custom_url == "":
-            custom_url = None
-        self.llm.ingest_web_documents(url=custom_url)
+        user_url = input("Enter a URL to ingest documents from: ")
+        if user_url == "":
+            print("URL cannot be empty, try again.")
+            return
+        self.llm.ingest_web_documents(url=user_url)
 
     def prompt(self):
         """

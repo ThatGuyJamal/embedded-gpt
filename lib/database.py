@@ -1,7 +1,6 @@
 from typing import Any, Optional, List
 
 import chromadb
-from langchain.llms.ollama import Ollama
 from langchain.vectorstores.chroma import Chroma
 from langchain.embeddings import OllamaEmbeddings
 
@@ -21,18 +20,13 @@ class Database:
             collection_name="embedded-gpt",
         )
 
-        # todo - fix this so the vector store is filled when the db is created.
-        self.vectorStore: Chroma | None = None
-
     def add_embeds(self, docs: List[chromadb.Documents], meta: Optional[Any] = None):
         """
         Add embeddings to the database
         """
         print("Adding %d documents to database and collection %s" % (len(docs), self._collection_name))
-        vectorstore = self.langchain_chroma.from_documents(collection_name=self._collection_name, documents=docs, embedding=self.ollama_embed_func, collection_metadata=meta, client=self.chroma_client)
+        self.langchain_chroma.from_documents(collection_name=self._collection_name, documents=docs, embedding=self.ollama_embed_func, collection_metadata=meta, client=self.chroma_client)
         print("Done adding documents to database")
-
-        self.vectorStore = vectorstore
 
     def delete_collection(self, collection_name: str):
         """

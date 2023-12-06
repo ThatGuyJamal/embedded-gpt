@@ -57,11 +57,6 @@ class LLM():
             print("Question cannot be empty, try again.")
             return
         
-        # Generate answer
-        if self.db.vectorStore is None:
-            print("You need to ingest documents first before prompting.")
-            return
-        
         prompt_template = """Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer.
 
         {context}
@@ -72,8 +67,9 @@ class LLM():
             template=prompt_template, input_variables=["context", "question"]
         )
         
+        print("Generating answer...")
         try:
-            qa = RetrievalQA.from_chain_type(self.ollama, chain_type="stuff", retriever=self.db.vectorStore.as_retriever(), chain_type_kwargs={"prompt": PROMPT},)
+            qa = RetrievalQA.from_chain_type(self.ollama, chain_type="stuff", retriever=self.db.langchain_chroma.as_retriever(), chain_type_kwargs={"prompt": PROMPT},)
             docs = qa({"query": question})
 
             print(docs['result'])
