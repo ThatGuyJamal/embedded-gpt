@@ -17,27 +17,26 @@ class LLM():
         self.ollama = Ollama(base_url='http://localhost:11434', model="thatguyjamal/codellama")
         self.db = Database()
 
-    def ingest_web_documents(self, url: str = None, chunk_size: int = 800, chunk_overlap: int = 10):
+    def ingest_web_documents(self, url: str, chunk_size: int = 400, chunk_overlap: int = 10):
         """
         Here we documents from the web and convert them into embeddings.
 
         url: The URL to ingest documents from.
         """
-        # Check if the url is a valid url
-        if url is not None:
-            parsed_url = urllib.parse.urlparse(url)
-            if parsed_url.scheme not in ["http", "https"]:
-                print("Invalid URL, try again.")
-                return
-
         if url is None:
-            url = "https://surrealdb.com"
+            print("No URL provided! Try again.")
+            return
+
+        parsed_url = urllib.parse.urlparse(url)
+        if parsed_url.scheme not in ["http", "https"]:
+            print("Invalid URL, try again.")
+            return
 
         loader = WebBaseLoader(url)
         data = loader.load()
         print("Loaded %d documents" % len(data))
 
-        text_splitter=RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=0)
+        text_splitter=RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
         all_splits = text_splitter.split_documents(data)
 
         print("Split into %d chunks" % len(all_splits))

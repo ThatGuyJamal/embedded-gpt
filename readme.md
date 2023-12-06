@@ -1,7 +1,6 @@
-# Surreal DB Documentation AI
+# Embedded GPT
 
-I embedded this AI on the [Surreal DB](https://surrealdb.com) documentation. This assumes you have a working
-[Ollama](https://ollama.ai) environment running and `codellama:7b` installed with ollama.
+An AI model built on [Codellama](https://ollama.ai/thatguyjamal/codellama) to be a code assistant.
 
 ## How to use
 
@@ -25,3 +24,5 @@ Also im learning about embedding and AI, this is just my process of learning. Ri
 works if you `ingest` the data first, then you can `prompt` it. I will try to make it work without
 having to ingest the data first as it should just lookup the data on the database. However, im using
 many tools ive never used before so I need to learn how to do that first.
+
+*I will provide more information on how to use this in the future.*

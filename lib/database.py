@@ -11,14 +11,14 @@ class Database:
     """
 
     def __init__(self) -> None:
-        self.chroma_client = chromadb.PersistentClient("./db/surreal-docs")
-        self._collection_name = "surreal-docs"
+        self.chroma_client = chromadb.PersistentClient("./db/embedded-gpt")
+        self._collection_name = "embedded-gpt"
         self.ollama_embed_func = OllamaEmbeddings(base_url='http://localhost:11434', model="codellama:7b")
 
         self.langchain_chroma = Chroma(
             client=self.chroma_client,
             embedding_function=self.ollama_embed_func,
-            collection_name="surreal-docs",
+            collection_name="embedded-gpt",
         )
 
         # todo - fix this so the vector store is filled when the db is created.
