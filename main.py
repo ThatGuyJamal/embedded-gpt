@@ -6,11 +6,9 @@ def main():
     cli = CLI()
 
     while True:
-        command = input("Enter a command or type 'help': ")
+        command = input("Enter a command or type 'help' to view the commands: ")
         cli.run_command(command)
 
 
 if __name__ == "__main__":
-    start_time = time.time()
     main()
-    print("--- %s seconds ---" % (time.time() - start_time))

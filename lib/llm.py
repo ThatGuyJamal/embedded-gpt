@@ -12,8 +12,8 @@ class LLM():
     """
 
     def __init__(self):
-        self.ollama = Ollama(base_url='http://localhost:11434', model="codellama:7b")
-        self.db = Database(self.ollama)
+        self.ollama = Ollama(base_url='http://localhost:11434', model="thatguyjamal/codellama")
+        self.db = Database()
 
     def ingest_web_documents(self, url: str = None, chunk_size: int = 800, chunk_overlap: int = 10):
         """
@@ -28,7 +28,7 @@ class LLM():
         data = loader.load()
         print("Loaded %d documents" % len(data))
 
-        text_splitter=RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=20)
+        text_splitter=RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=0)
         all_splits = text_splitter.split_documents(data)
 
         print("Split into %d chunks" % len(all_splits))
@@ -36,7 +36,7 @@ class LLM():
         self.db.add_embeds(docs=all_splits)
         
         print("Added %d documents to database" % len(all_splits))
-        print("There are", self.db.langchain_chroma._collection.count(), "documents in the database")
+        print("There are", self.db.total_documents(), "documents in the database")
 
     def prompt(self):
         """
