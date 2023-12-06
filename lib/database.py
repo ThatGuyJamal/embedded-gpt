@@ -11,16 +11,17 @@ class Database:
     """
 
     def __init__(self, ollama: Ollama) -> None:
-        client = chromadb.PersistentClient("./db/convex")
-        self._collection_name = "convex-docs"
+        client = chromadb.PersistentClient("./db/docs")
+        self._collection_name = "surreal-docs"
         self.ollama_embed_func = OllamaEmbeddings(base_url='http://localhost:11434', model="codellama:7b")
 
         self.langchain_chroma = Chroma(
             client=client,
             embedding_function=self.ollama_embed_func,
-            collection_name="convex-docs",
+            collection_name="surreal-docs",
         )
 
+        # todo - fix this so the vector store is filled when the db is created.
         self.vectorStore = Chroma | None
 
     def add_embeds(self, docs: List[chromadb.Documents], meta: Optional[Any] = None):
