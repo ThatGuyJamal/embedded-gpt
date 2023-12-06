@@ -1,0 +1,4 @@
+langchain==0.0.344
+bs4==0.0.1
+GPT4All==2.0.2
+chromadb==0.4.18
