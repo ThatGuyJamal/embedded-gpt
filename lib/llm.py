@@ -64,7 +64,12 @@ class LLM():
             template=prompt_template, input_variables=["context", "question"]
         )
         
-        qa = qachain=RetrievalQA.from_chain_type(self.ollama, chain_type="stuff", retriever=self.db.vectorStore.as_retriever(), chain_type_kwargs={"prompt": PROMPT},)
-        docs = qa({"query": question})
+        try:
+            qa = RetrievalQA.from_chain_type(self.ollama, chain_type="stuff", retriever=self.db.vectorStore.as_retriever(), chain_type_kwargs={"prompt": PROMPT},)
+            docs = qa({"query": question})
 
-        print(docs['result'])
+            print(docs['result'])
+        except Exception as e:
+            print("Error:", e)
+            print("[NOTE]: This error is probably coming from the vectorStore being None, this will be fixed soon, but for now you have to run the ingest command to fix this :/")
+            return
